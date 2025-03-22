@@ -4,8 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,6 +16,37 @@ import androidx.compose.ui.tooling.preview.Preview
 import edu.cuhk.csci3310project.ui.theme.CSCI3310ProjectTheme
 
 class MainActivity : ComponentActivity() {
+
+    private val cameraPermission = android.Manifest.permission.CAMERA
+
+    private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()){ isGranted ->
+        if(isGranted){
+
+        }
+    }
+
+    private fun requestCameraAndStartScanner(){
+        if(isPermissionGranted(cameraPermission)){
+
+        }else{
+            requestCameraPermission()
+        }
+    }
+
+    private fun requestCameraPermission(){
+        when{
+            shouldShowRequestPermissionRationale(cameraPermission) ->{
+                cameraPermissionRequest {
+                    openPermissionSetting()
+                }
+            }
+            else -> {
+                requestPermissionLauncher.launch(cameraPermission)
+            }
+        }
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -24,7 +57,6 @@ class MainActivity : ComponentActivity() {
                         name = "Android",
                         modifier = Modifier.padding(innerPadding)
                     )
-
                 }
             }
         }

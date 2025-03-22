@@ -1,11 +1,11 @@
 package edu.cuhk.csci3310project
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-import androidx.compose.material3.AlertDialog
 import androidx.core.content.ContextCompat
 
 fun Context.isPermissionGranted(permission: String): Boolean{
